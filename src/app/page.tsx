@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export default function LandingPage() {
   return (
+    
     <div className="w-full bg-slate-50 flex flex-col items-center">
       
       <div className="relative w-full flex flex-col items-center overflow-hidden bg-white border-b border-slate-100">

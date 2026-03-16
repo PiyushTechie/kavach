@@ -3,7 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Analytics } from "@vercel/analytics/next"
 const googleSans = DM_Sans({ 
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${googleSans.className} bg-slate-50 text-slate-900 flex flex-col min-h-screen`}>
-        
+        <Analytics/>
         <Navbar />
 
         <main className="flex-grow flex flex-col">
