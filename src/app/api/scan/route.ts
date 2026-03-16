@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { ratelimit } from "../../../../lib/ratelimit"; // Adjust path if needed (e.g., "@/lib/ratelimit" or "../../../lib/ratelimit")
-
+import { ratelimit } from "../../../../lib/ratelimit";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function POST(req: Request) {
