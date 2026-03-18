@@ -6,14 +6,12 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-slate-900 dark:bg-slate-950 text-slate-400 py-16 border-t border-slate-800 relative overflow-hidden transition-colors duration-300">
-      {/* Subtle top border glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid md:grid-cols-5 gap-8 lg:gap-12 text-base mb-16">
           
-          {/* Brand Section */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center group inline-flex mb-6">
               <div className="group-hover:scale-105 transition-transform duration-300 bg-white/10 dark:bg-transparent rounded-lg p-1">
@@ -42,7 +40,6 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <h4 className="text-white font-bold tracking-wider uppercase text-sm mb-2">Resources</h4>
             <Link href="/ledger" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Threat Ledger</Link>
-            {/* 🚀 Wired up the new pages here */}
             <Link href="/how-it-works" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">How it Works</Link>
             <Link href="/privacy" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Privacy Policy</Link>
             <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">API Docs</Link>
