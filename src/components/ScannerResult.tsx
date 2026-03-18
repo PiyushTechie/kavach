@@ -19,9 +19,9 @@ export default function ScannerResult({ status, verdict, reason }: ScannerResult
   const isThreat = status.includes("THREAT") || status.includes("ERROR") || verdict.includes("Threat") || verdict.includes("Scam");
 
   return (
-    <div className={`transform transition-all duration-500 ease-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"} flex flex-col items-center p-6 rounded-2xl border ${isThreat ? "bg-red-950/40 border-red-500/30 shadow-[0_0_30px_rgba(220,38,38,0.15)]" : "bg-emerald-50 border-emerald-200 shadow-sm"}`}>
+    <div className={`transform transition-all duration-500 ease-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"} flex flex-col items-center p-6 rounded-2xl border ${isThreat ? "bg-red-950/40 border-red-500/30 shadow-[0_0_30px_rgba(220,38,38,0.15)]" : "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50 shadow-sm"}`}>
       
-      <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${isThreat ? "bg-red-500/20 text-red-500 animate-pulse shadow-[0_0_20px_rgba(220,38,38,0.4)]" : "bg-emerald-100 text-emerald-600"}`}>
+      <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${isThreat ? "bg-red-500/20 text-red-500 animate-pulse shadow-[0_0_20px_rgba(220,38,38,0.4)]" : "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400"}`}>
         {isThreat ? (
           <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
         ) : (
@@ -29,16 +29,16 @@ export default function ScannerResult({ status, verdict, reason }: ScannerResult
         )}
       </div>
 
-      <h3 className={`text-sm font-bold tracking-widest uppercase mb-1 transition-colors duration-500 ${isThreat ? "text-red-500" : "text-emerald-600"}`}>
+      <h3 className={`text-sm font-bold tracking-widest uppercase mb-1 transition-colors duration-500 ${isThreat ? "text-red-500" : "text-emerald-600 dark:text-emerald-500"}`}>
         {status}
       </h3>
       
-      <h2 className={`text-2xl font-extrabold text-center mb-4 transition-colors duration-500 ${isThreat ? "text-white" : "text-slate-900"}`}>
+      <h2 className={`text-2xl font-extrabold text-center mb-4 transition-colors duration-500 ${isThreat ? "text-white" : "text-slate-900 dark:text-emerald-50"}`}>
         {verdict}
       </h2>
       
-      <div className={`w-full p-4 rounded-xl transition-all duration-500 ${isThreat ? "bg-red-950/80 border border-red-500/20" : "bg-white border border-emerald-100"}`}>
-        <p className={`text-center text-sm leading-relaxed ${isThreat ? "text-red-200 font-mono" : "text-slate-600"}`}>
+      <div className={`w-full p-4 rounded-xl transition-all duration-500 ${isThreat ? "bg-red-950/80 border border-red-500/20" : "bg-white dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900/30"}`}>
+        <p className={`text-center text-sm leading-relaxed ${isThreat ? "text-red-200 font-mono" : "text-slate-600 dark:text-emerald-200/80"}`}>
           {reason}
         </p>
       </div>

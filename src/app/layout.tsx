@@ -3,7 +3,10 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "../components/ThemeProvider";
+import Script from "next/script";
+
 const googleSans = DM_Sans({ 
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kavach | AI-Powered Scam Protection",
     description: "Scan suspicious links, WhatsApp forwards, and QR codes instantly. No account required.",
-    url: "https://kavach.vercel.app",
+    url: "https://kavach-nu.vercel.app",
     siteName: "Kavach",
     images: [
       {
@@ -45,16 +48,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${googleSans.className} bg-slate-50 text-slate-900 flex flex-col min-h-screen`}>
-        <Analytics/>
-        <Navbar />
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${googleSans.className} bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 flex flex-col min-h-screen transition-colors duration-300`}>
+        
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div id="google_translate_element" className="fixed bottom-4 left-4 z-50 bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden border border-slate-200 dark:border-slate-700"></div>
 
-        <main className="flex-grow flex flex-col">
-          {children}
-        </main>
+          <Analytics/>
+          <Navbar />
 
-        <Footer />
+          <main className="flex-grow flex flex-col">
+            {children}
+          </main>
+
+          <Footer />
+        </ThemeProvider>
+
+        <Script id="google-translate-init" strategy="afterInteractive">
+          {`
+            function googleTranslateElementInit() {
+              new window.google.translate.TranslateElement(
+                { pageLanguage: 'en', layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE }, 
+                'google_translate_element'
+              );
+            }
+          `}
+        </Script>
+        <Script 
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" 
+          strategy="afterInteractive" 
+        />
 
       </body>
     </html>

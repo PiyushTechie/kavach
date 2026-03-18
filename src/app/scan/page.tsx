@@ -92,8 +92,10 @@ export default function ScanDashboard() {
         if (!response.ok) throw new Error("Server error");
         scanData = await response.json(); 
         
-        setStatus(scanData.verdict === "Safe" ? "VERIFIED SECURE" : "CRITICAL THREAT");
-        setVerdict(scanData.verdict === "Safe" ? "Secure Link" : "Malicious URL Detected");
+        const isSafe = scanData.verdict?.toLowerCase().includes("safe");
+        setStatus(isSafe ? "VERIFIED SECURE" : "CRITICAL THREAT");
+        setVerdict(isSafe ? "Secure Link" : "Malicious URL Detected");
+        setReason(scanData.reason || (isSafe ? "This link is not present in our threat databases." : "Suspicious activity detected."));
 
       } else if (activeTab === "text") {
         const response = await fetch("/api/analyze", {
@@ -104,8 +106,9 @@ export default function ScanDashboard() {
         if (!response.ok) throw new Error("Server error");
         scanData = await response.json();
         
-        setStatus(scanData.verdict.includes("Safe") ? "VERIFIED SECURE" : "CRITICAL THREAT");
-        setVerdict(scanData.verdict.includes("Safe") ? "Safe Content" : "Social Engineering Detected");
+        const isSafe = scanData.verdict?.toLowerCase().includes("safe");
+        setStatus(isSafe ? "VERIFIED SECURE" : "CRITICAL THREAT");
+        setVerdict(isSafe ? "Safe Content" : "Social Engineering Detected");
         setReason(scanData.reason);
 
       } else if (activeTab === "image" && selectedFile) {
@@ -123,8 +126,9 @@ export default function ScanDashboard() {
           if (!response.ok) throw new Error("Server error");
           scanData = await response.json();
           
-          setStatus(scanData.verdict === "Safe" ? "VERIFIED SECURE" : "CRITICAL THREAT");
-          setVerdict(scanData.verdict === "Safe" ? "Safe QR Code" : "Malicious QR Payload");
+          const isSafe = scanData.verdict?.toLowerCase().includes("safe");
+          setStatus(isSafe ? "VERIFIED SECURE" : "CRITICAL THREAT");
+          setVerdict(isSafe ? "Safe QR Code" : "Malicious QR Payload");
           setReason(`Extracted URL: ${hiddenUrl}. ${scanData.reason || ""}`);
 
         } else {
@@ -137,8 +141,9 @@ export default function ScanDashboard() {
           if (!response.ok) throw new Error("Server error");
           scanData = await response.json();
           
-          setStatus(scanData.verdict.includes("Safe") ? "VERIFIED SECURE" : "CRITICAL THREAT");
-          setVerdict(scanData.verdict.includes("Safe") ? "Authentic Media" : "Manipulated Media Detected");
+          const isSafe = scanData.verdict?.toLowerCase().includes("safe");
+          setStatus(isSafe ? "VERIFIED SECURE" : "CRITICAL THREAT");
+          setVerdict(isSafe ? "Authentic Media" : "Manipulated Media Detected");
           setReason(scanData.reason);
         }
         
@@ -152,13 +157,14 @@ export default function ScanDashboard() {
         if (!response.ok) throw new Error("Server error");
         scanData = await response.json();
         
-        setStatus(scanData.verdict.includes("Safe") ? "VERIFIED SECURE" : "CRITICAL THREAT");
-        setVerdict(scanData.verdict.includes("Safe") ? "Authentic Audio" : "AI Deepfake/Vishing Detected");
+        const isSafe = scanData.verdict?.toLowerCase().includes("safe");
+        setStatus(isSafe ? "VERIFIED SECURE" : "CRITICAL THREAT");
+        setVerdict(isSafe ? "Authentic Audio" : "AI Deepfake/Vishing Detected");
         setReason(scanData.reason);
       }
 
       if (scanData) {
-        const isDangerous = scanData.status?.toUpperCase() === "THREAT" || scanData.verdict?.toUpperCase().includes("THREAT") || scanData.verdict?.toUpperCase().includes("SCAM");
+        const isDangerous = scanData.status?.toLowerCase() === "threat" || scanData.verdict?.toLowerCase().includes("threat") || scanData.verdict?.toLowerCase().includes("scam");
         
         if (isDangerous && shareToLedger) {
           try {
@@ -200,18 +206,18 @@ export default function ScanDashboard() {
   const isFileTab = activeTab === "image" || activeTab === "audio";
 
   return (
-    <div className="flex-grow flex flex-col items-center justify-center p-6 pt-36 md:pt-48 pb-24 bg-slate-50 min-h-screen transition-colors duration-500">
+    <div className="flex-grow flex flex-col items-center justify-center p-6 pt-36 md:pt-48 pb-24 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-500">
       <div 
         className={`w-full max-w-lg p-8 rounded-3xl transition-all duration-700 ease-out border ${
           isThreatDetected 
             ? "bg-slate-950 border-red-500/50 shadow-[0_0_50px_rgba(220,38,38,0.25)]" 
-            : "bg-white shadow-xl border-slate-200"
+            : "bg-white dark:bg-slate-900 shadow-xl border-slate-200 dark:border-slate-800"
         }`}
       >
-        <h1 className={`text-3xl font-extrabold mb-2 text-center transition-colors duration-500 ${isThreatDetected ? "text-white" : "text-slate-900"}`}>
+        <h1 className={`text-3xl font-extrabold mb-2 text-center transition-colors duration-500 ${isThreatDetected ? "text-white" : "text-slate-900 dark:text-white"}`}>
           Security Scanner
         </h1>
-        <p className={`mb-8 text-center text-sm transition-colors duration-500 ${isThreatDetected ? "text-red-400" : "text-slate-500"}`}>
+        <p className={`mb-8 text-center text-sm transition-colors duration-500 ${isThreatDetected ? "text-red-400" : "text-slate-500 dark:text-slate-400"}`}>
           Powered by Google Safe Browsing & Gemini Vision AI
         </p>
 
@@ -239,9 +245,9 @@ export default function ScanDashboard() {
               id="ledger-consent"
               checked={shareToLedger}
               onChange={(e) => setShareToLedger(e.target.checked)}
-              className="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 cursor-pointer"
+              className="w-4 h-4 text-blue-600 dark:text-blue-500 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 rounded focus:ring-blue-500 dark:focus:ring-blue-500/50 cursor-pointer transition-colors duration-300"
             />
-            <label htmlFor="ledger-consent" className="ml-2 text-sm text-slate-600 cursor-pointer select-none">
+            <label htmlFor="ledger-consent" className="ml-2 text-sm text-slate-600 dark:text-slate-300 cursor-pointer select-none transition-colors duration-300">
               Anonymously share to Community Ledger
             </label>
           </div>
@@ -249,7 +255,7 @@ export default function ScanDashboard() {
           <button
             onClick={runScan}
             disabled={isLoading || (!isFileTab && !inputValue.trim()) || (isFileTab && !selectedFile)}
-            className="w-full flex justify-center items-center bg-blue-600 text-white text-lg font-bold py-4 rounded-xl hover:bg-blue-700 transition shadow-md disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
+            className="w-full flex justify-center items-center bg-blue-600 dark:bg-blue-600 text-white text-lg font-bold py-4 rounded-xl hover:bg-blue-700 dark:hover:bg-blue-700 transition shadow-md disabled:bg-slate-300 dark:disabled:bg-slate-800 disabled:text-slate-500 dark:disabled:text-slate-600 disabled:shadow-none cursor-pointer"
           >
             {isLoading ? "Running Security Protocol..." : getButtonText()}
           </button>
@@ -262,7 +268,7 @@ export default function ScanDashboard() {
         {isThreatDetected && (
           <button
             onClick={() => handleTabSwitch("url")}
-            className="w-full mt-6 bg-transparent border border-red-500/30 text-red-400 hover:bg-red-500/10 text-sm font-bold py-3 rounded-xl transition"
+            className="w-full mt-6 bg-transparent border border-red-500/30 text-red-400 hover:bg-red-500/10 text-sm font-bold py-3 rounded-xl transition cursor-pointer"
           >
             Run Another Scan
           </button>

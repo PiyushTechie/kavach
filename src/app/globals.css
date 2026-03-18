@@ -1,4 +1,40 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+body {
+  top: 0px !important; 
+  position: static !important;
+}
+
+.goog-te-banner-frame,
+.skiptranslate > iframe {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+}
+
+#goog-gt-tt, 
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+.dark .scrollbar-thin::-webkit-scrollbar-thumb { background-color: #475569; }
+
 
 :root {
   --background: #ffffff;
@@ -26,7 +62,6 @@ body {
 }
 
 
-/* 1. The Shifting Text Gradient */
 @keyframes text-gradient {
   to {
     background-position: 200% center;
@@ -36,7 +71,6 @@ body {
   animation: text-gradient 3s linear infinite;
 }
 
-/* 2. The Glass Shimmer Sweep */
 @keyframes shimmer-slide {
   to {
     transform: translateX(100%);

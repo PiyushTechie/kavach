@@ -78,7 +78,6 @@ export default function LiveCameraScanner({ onScanSuccess, onCancel }: LiveCamer
           <p className="text-white mb-4 text-sm font-medium animate-pulse">Point camera at QR code...</p>
           <div className="relative w-full max-w-sm aspect-square rounded-xl overflow-hidden border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
             <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" />
-            {/* Hidden canvas used for scanning */}
             <canvas ref={canvasRef} className="hidden" />
           </div>
         </>
