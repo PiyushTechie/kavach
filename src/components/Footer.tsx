@@ -5,9 +5,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#050505] text-slate-400 py-16 border-t border-slate-800/80 relative overflow-hidden">
-      
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-60"></div>
+    <footer className="w-full bg-slate-900 dark:bg-slate-950 text-slate-400 py-16 border-t border-slate-800 relative overflow-hidden transition-colors duration-300">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
       <div className="absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
@@ -18,7 +17,7 @@ export default function Footer() {
         
         <div className="grid md:grid-cols-4 gap-8 lg:gap-12 text-base mb-16">
           
-          <div className="md:col-span-2 pr-4">
+          <div className="md:col-span-2">
             <Link href="/" className="flex items-center group inline-flex mb-6">
               <div className="group-hover:scale-105 transition-transform duration-300 bg-transparent rounded-lg p-1 border border-transparent">
                 <Image 
@@ -56,19 +55,11 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h4 className="text-white font-black tracking-widest uppercase text-xs mb-2 opacity-90">Resources</h4>
-            <Link href="/ledger" className="text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Threat Ledger</Link>
-            <Link href="/how-it-works" className="text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">How it Works</Link>
-            <Link href="/privacy" className="text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Privacy Policy</Link>
-            <Link href="/terms" className="text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Terms of Use</Link>
-            <Link href="/api-docs" className="text-slate-300 hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">API Docs</Link>
-            
-            <div className="mt-4 pt-4 border-t border-slate-800/80">
-              <a href="https://github.com/PiyushTechie/kavach" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors w-fit group font-bold text-sm">
-                <span>View Source Code</span>
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
-              </a>
-            </div>
+            <h4 className="text-white font-bold tracking-wider uppercase text-sm mb-2">Resources</h4>
+            <Link href="/ledger" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Threat Ledger</Link>
+            <Link href="/how-it-works" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">How it Works</Link>
+            <Link href="/privacy" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">Privacy Policy</Link>
+            <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 dark:hover:text-blue-400 hover:translate-x-1 transition-all duration-300 w-fit">API Docs</Link>
           </div>
 
         </div>
