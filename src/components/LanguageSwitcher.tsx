@@ -1,47 +1,44 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const languageGroups = [
   {
-    category: "Global Languages",
+    category: "Global",
     items: [
-      { code: "en", name: "English", flag: "🇺🇸" },
-      { code: "zh-CN", name: "中文 (Chinese)", flag: "🇨🇳" },
-      { code: "es", name: "Español (Spanish)", flag: "🇪🇸" },
-      { code: "ar", name: "العربية (Arabic)", flag: "🇸🇦" },
-      { code: "fr", name: "Français (French)", flag: "🇫🇷" },
-      { code: "ru", name: "Русский (Russian)", flag: "🇷🇺" },
-      { code: "pt", name: "Português", flag: "🇧🇷" },
-      { code: "de", name: "Deutsch (German)", flag: "🇩🇪" },
-      { code: "ja", name: "日本語 (Japanese)", flag: "🇯🇵" },
-      { code: "ko", name: "한국어 (Korean)", flag: "🇰🇷" },
-      { code: "it", name: "Italiano", flag: "🇮🇹" },
-      { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
+      { code: "en", name: "English", country: "us" },
+      { code: "zh-CN", name: "中文 (Chinese)", country: "cn" },
+      { code: "es", name: "Español (Spanish)", country: "es" },
+      { code: "ar", name: "العربية (Arabic)", country: "sa" },
+      { code: "fr", name: "Français (French)", country: "fr" },
+      { code: "ru", name: "Русский (Russian)", country: "ru" },
+      { code: "pt", name: "Português", country: "br" },
+      { code: "de", name: "Deutsch (German)", country: "de" },
+      { code: "ja", name: "日本語 (Japanese)", country: "jp" },
+      { code: "ko", name: "한국어 (Korean)", country: "kr" },
     ]
   },
   {
-    category: "Indian Languages",
+    category: "Indian",
     items: [
-      { code: "hi", name: "हिन्दी (Hindi)", flag: "🇮🇳" },
-      { code: "bn", name: "বাংলা (Bengali)", flag: "🇮🇳" },
-      { code: "te", name: "తెలుగు (Telugu)", flag: "🇮🇳" },
-      { code: "mr", name: "मराठी (Marathi)", flag: "🇮🇳" },
-      { code: "ta", name: "தமிழ் (Tamil)", flag: "🇮🇳" },
-      { code: "ur", name: "اردو (Urdu)", flag: "🇮🇳" },
-      { code: "gu", name: "ગુજરાતી (Gujarati)", flag: "🇮🇳" },
-      { code: "kn", name: "ಕನ್ನಡ (Kannada)", flag: "🇮🇳" },
-      { code: "ml", name: "മലയാളം (Malayalam)", flag: "🇮🇳" },
-      { code: "or", name: "ଓଡ଼ିଆ (Odia)", flag: "🇮🇳" },
-      { code: "pa", name: "ਪੰਜਾਬੀ (Punjabi)", flag: "🇮🇳" },
-      { code: "as", name: "অসমীয়া (Assamese)", flag: "🇮🇳" },
-      { code: "mai", name: "मैथिली (Maithili)", flag: "🇮🇳" },
-      { code: "sa", name: "संस्कृत (Sanskrit)", flag: "🇮🇳" },
+      { code: "hi", name: "हिन्दी (Hindi)", country: "in" },
+      { code: "bn", name: "বাংলা (Bengali)", country: "in" },
+      { code: "te", name: "తెలుగు (Telugu)", country: "in" },
+      { code: "mr", name: "मराठी (Marathi)", country: "in" },
+      { code: "ta", name: "தமிழ் (Tamil)", country: "in" },
+      { code: "ur", name: "اردو (Urdu)", country: "in" },
+      { code: "gu", name: "ગુજરાતી (Gujarati)", country: "in" },
+      { code: "kn", name: "ಕನ್ನಡ (Kannada)", country: "in" },
+      { code: "ml", name: "മലയാളം (Malayalam)", country: "in" },
+      { code: "or", name: "ଓଡ଼ିଆ (Odia)", country: "in" },
+      { code: "pa", name: "ਪੰਜਾਬੀ (Punjabi)", country: "in" },
     ]
   }
 ];
 
 export default function LanguageSwitcher() {
   const [currentLang, setCurrentLang] = useState("en");
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const match = document.cookie.match(/(?:^|;)\s*googtrans=([^;]*)/);
@@ -49,52 +46,92 @@ export default function LanguageSwitcher() {
       const lang = match[1].split('/')[2];
       if (lang) setCurrentLang(lang);
     }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const switchLanguage = (langCode: string) => {
     document.cookie = `googtrans=/en/${langCode}; path=/`;
     document.cookie = `googtrans=/en/${langCode}; domain=.${window.location.hostname}; path=/`;
-    
-    window.location.reload();
+    setIsOpen(false);
+    window.location.reload(); 
   };
 
-  const getCurrentFlag = () => {
+  const getCurrentCountry = () => {
     for (const group of languageGroups) {
       const found = group.items.find(l => l.code === currentLang);
-      if (found) return found.flag;
+      if (found) return found.country;
     }
-    return "🇺🇸"; 
+    return "us"; 
   };
 
   return (
-    <div className="relative group z-50">
-      <button className="flex items-center gap-2 p-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-sm border border-slate-200 dark:border-slate-700">
-        <span className="text-lg leading-none">{getCurrentFlag()}</span>
-        <span className="text-xs font-bold uppercase hidden sm:block pr-1">{currentLang}</span>
+    <div className="relative z-50" ref={dropdownRef}>
+      
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 border ${
+          isOpen 
+            ? "bg-blue-50 border-blue-600 dark:bg-slate-800 dark:border-blue-500 shadow-md" 
+            : "bg-slate-200 border-transparent dark:bg-slate-800 dark:border-slate-700 hover:bg-slate-300 dark:hover:bg-slate-700 shadow-inner"
+        } focus:outline-none`}
+        aria-label="Change Language"
+      >
+        <img 
+          src={`https://flagcdn.com/w40/${getCurrentCountry()}.png`} 
+          alt="Language Flag" 
+          className="w-5 h-auto rounded-[2px] shadow-sm pointer-events-none"
+        />
       </button>
       
-      <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+      <div 
+        className={`absolute right-0 mt-3 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl transform origin-top-right transition-all duration-200 ease-out z-50 ${
+          isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+        }`}
+      >
         
-        <div className="max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600">
+        <div className="max-h-[300px] overflow-y-auto py-2 language-scrollbar">
           
-          {languageGroups.map((group, groupIndex) => (
+          {languageGroups.map((group, groupIdx) => (
             <div key={group.category}>
-              <div className="px-4 py-2 bg-slate-50 dark:bg-slate-950/50 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider sticky top-0 z-10 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800">
+              
+              {groupIdx > 0 && <div className="h-px w-full bg-slate-100 dark:bg-slate-800 my-2"></div>}
+              <div className="px-4 py-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider bg-white dark:bg-slate-900 sticky top-0">
                 {group.category}
               </div>
               
-              {group.items.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => switchLanguage(lang.code)}
-                  className={`w-full text-left px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-slate-800 flex items-center gap-3 transition ${
-                    currentLang === lang.code ? "bg-blue-50 dark:bg-slate-800/50 font-bold text-blue-600 dark:text-blue-400" : "font-medium text-slate-700 dark:text-slate-200"
-                  }`}
-                >
-                  <span className="text-xl leading-none">{lang.flag}</span>
-                  <span className="text-sm">{lang.name}</span>
-                </button>
-              ))}
+              <div className="flex flex-col mt-1">
+                {group.items.map((lang) => {
+                  const isActive = currentLang === lang.code;
+                  return (
+                    <button
+                      key={lang.code}
+                      onClick={() => switchLanguage(lang.code)}
+                      className={`w-full text-left px-4 py-2 flex items-center gap-3 transition-colors duration-150 ${
+                        isActive 
+                          ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-bold border-l-2 border-blue-600 dark:border-blue-500" 
+                          : "bg-transparent text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 border-l-2 border-transparent"
+                      }`}
+                    >
+                      <img 
+                        src={`https://flagcdn.com/w20/${lang.country}.png`} 
+                        alt="flag" 
+                        className="w-4 h-auto rounded-sm shadow-sm"
+                      />
+                      <span className="text-sm">
+                        {lang.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           ))}
           

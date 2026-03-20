@@ -34,7 +34,7 @@ export default function Navbar() {
     return (
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="p-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors shadow-inner"
+        className="p-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors shadow-inner flex items-center justify-center w-10 h-10"
         aria-label="Toggle Dark Mode"
       >
         {theme === "dark" ? (
@@ -97,13 +97,22 @@ export default function Navbar() {
 
               <Link 
                 href="/scan" 
-                className="bg-blue-600 text-white text-base font-bold px-8 py-3 rounded-full hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 ml-2"
+                className="relative inline-flex h-12 overflow-hidden rounded-full p-[2px] ml-4 group focus:outline-none"
               >
-                Launch App
+                <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#f8fafc_0%,#3b82f6_50%,#f8fafc_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#020617_0%,#3b82f6_50%,#020617_100%)] transition-all duration-500" />
+                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-slate-950 px-8 py-3 text-base font-bold backdrop-blur-3xl transition-all duration-300 group-hover:bg-slate-50/80 dark:group-hover:bg-slate-900/80 shadow-[0_0_15px_rgba(37,99,235,0.1)] group-hover:shadow-[0_0_25px_rgba(37,99,235,0.4)]">
+                  <span className="relative flex items-center gap-2 text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    <svg className="w-5 h-5 text-blue-600 dark:text-blue-500 group-hover:animate-pulse" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg>
+                    Launch App
+                  </span>
+                </span>
               </Link>
+
             </div>
 
-            <div className="flex items-center gap-4 md:hidden">
+            <div className="flex items-center gap-3 md:hidden">
               <LanguageSwitcher />
               {renderThemeToggle()}
               <button 
@@ -140,13 +149,23 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            
             <Link 
               href="/scan" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-4 text-center bg-blue-600 text-white text-lg font-bold px-6 py-4 rounded-xl shadow-lg hover:bg-blue-700 transition"
+              className="relative inline-flex h-14 mt-4 overflow-hidden rounded-xl p-[2px] group focus:outline-none"
             >
-              Launch App
+              <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#f8fafc_0%,#3b82f6_50%,#f8fafc_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#0f172a_0%,#3b82f6_50%,#0f172a_100%)] transition-all duration-500" />
+              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-white dark:bg-slate-900 px-6 py-4 text-lg font-bold backdrop-blur-3xl transition-all duration-300 group-hover:bg-slate-50/80 dark:group-hover:bg-slate-800/80 shadow-md">
+                <span className="relative flex items-center gap-2 text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  <svg className="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                  Launch App
+                </span>
+              </span>
             </Link>
+
           </div>
         </div>
       </nav>

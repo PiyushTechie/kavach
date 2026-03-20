@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
           <div className="prose prose-slate dark:prose-invert max-w-none">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-0 mb-4">1. Our Core Privacy Philosophy</h2>
             <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-              Kavach was built by Team The Exceptions to be a shield, not a surveillance tool. Because we process potentially sensitive user inputs (such as WhatsApp forwards, voice notes, and screenshots) to detect scams, our architecture is strictly designed around <strong>ephemeral processing and zero-retention</strong> for media.
+              Kavach was built by Piyush Prajapati to be a shield, not a surveillance tool. Because we process potentially sensitive user inputs (such as WhatsApp forwards, voice notes, and screenshots) to detect scams, our architecture is strictly designed around <strong>ephemeral processing and zero-retention</strong> for media.
             </p>
 
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">2. How We Handle Your Inputs</h2>
@@ -45,13 +45,6 @@ export default function PrivacyPolicy() {
               <li><strong>Vercel & Upstash Redis:</strong> Used for secure hosting, Edge API routing, and strictly enforcing API rate-limits to prevent abuse.</li>
               <li><strong>Firebase Firestore:</strong> Used exclusively to host the anonymized Community Threat Ledger.</li>
             </ul>
-
-            <div className="bg-blue-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-100 dark:border-slate-700 mt-10">
-              <h3 className="text-lg font-bold text-blue-900 dark:text-blue-400 mb-2">Hack2Skill GDG Solution Challenge Notice</h3>
-              <p className="text-sm text-blue-800 dark:text-slate-300 leading-relaxed">
-                This application is a functional prototype built for demonstration purposes during the Hack2Skill GDG Hackathon. While the security features are functional, users should always exercise human caution and not rely solely on automated tools.
-              </p>
-            </div>
             
           </div>
         </div>
