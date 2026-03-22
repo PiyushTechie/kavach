@@ -34,7 +34,7 @@ export default function Navbar() {
     return (
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="p-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors shadow-inner flex items-center justify-center w-10 h-10"
+        className="p-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors shadow-inner flex items-center justify-center w-10 h-10 cursor-pointer"
         aria-label="Toggle Dark Mode"
       >
         {theme === "dark" ? (

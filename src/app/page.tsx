@@ -55,15 +55,20 @@ export default function LandingPage() {
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-6">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href="/scan" className="relative p-[2px] inline-flex items-center justify-center font-bold text-white rounded-full group w-full sm:w-auto">
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-400 to-teal-400 rounded-full blur-[6px] opacity-70 group-hover:opacity-100 group-hover:blur-[10px] transition-all duration-500 animate-pulse"></span>
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-400 to-teal-400 rounded-full opacity-100"></span>
-                <span className="relative px-8 py-4 bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md rounded-full flex items-center justify-center gap-2 border border-white/10 group-hover:bg-transparent transition-colors duration-300">
+              <Link 
+                href="/scan" 
+                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-blue-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(37,99,235,0.5)] w-full sm:w-auto group"
+              >
+                <span className="absolute top-0 -left-[100%] h-full w-1/2 z-10 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-[200%] transition-all duration-700 ease-out"></span>
+                
+                <span className="relative flex items-center gap-2">
                   Launch Scanner
-                  <svg className="w-5 h-5 text-teal-400 group-hover:translate-x-1 group-hover:text-white transition-all duration-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                  </svg>
                 </span>
               </Link>
-            </motion.div>
+            </motion.div> 
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link href="/ledger" className="relative px-8 py-4 bg-transparent border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-full overflow-hidden group flex items-center justify-center gap-2.5 w-full sm:w-auto transition-colors duration-300">

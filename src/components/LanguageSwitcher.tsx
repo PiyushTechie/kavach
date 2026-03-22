@@ -77,7 +77,7 @@ export default function LanguageSwitcher() {
       
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 border ${
+        className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 border cursor-pointer ${
           isOpen 
             ? "bg-blue-50 border-blue-600 dark:bg-slate-800 dark:border-blue-500 shadow-md" 
             : "bg-slate-200 border-transparent dark:bg-slate-800 dark:border-slate-700 hover:bg-slate-300 dark:hover:bg-slate-700 shadow-inner"
@@ -114,7 +114,7 @@ export default function LanguageSwitcher() {
                     <button
                       key={lang.code}
                       onClick={() => switchLanguage(lang.code)}
-                      className={`w-full text-left px-4 py-2 flex items-center gap-3 transition-colors duration-150 ${
+                      className={`w-full text-left px-4 py-2 flex items-center gap-3 cursor-pointer transition-colors duration-150 ${
                         isActive 
                           ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-bold border-l-2 border-blue-600 dark:border-blue-500" 
                           : "bg-transparent text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 border-l-2 border-transparent"
